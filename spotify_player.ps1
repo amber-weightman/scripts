@@ -16,6 +16,12 @@ echo "`nEnabling logging..."
 Start-Transcript
 
 
+# Launch Spotify and wait for it to open
+echo "`nLaunching Spotify..."
+APPDATA\Roaming\Spotify\Spotify.exe
+Start-Sleep -Seconds 10
+
+
 # 1. AUTHENTICATE -------------------------------------------------------------------------------------------------
 echo "`nAuthenticating..."
 $authheaders = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
