@@ -34,10 +34,4 @@ powershell -File Z:\Git\scripts\spotify_player.ps1 --cookie "redacted" --id "red
 
 Trigger the script file however you want. I set it up on Windows Task Scheduler to run at 6pm every weekday, as a nice distraction to help transition me out of work headspace.
 
----
-
-Preconditions for the script to work:
-* Spotify must be running on your machine and you must be logged in (either via the browser or the desktop app). I currently have the desktop app set to launch minimised on startup, but a step could easily be added into the script to launch the app if it isn't already running.
-* Speakers must be switched on and enabled on your PC.
-
 
