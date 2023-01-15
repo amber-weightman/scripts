@@ -1,4 +1,12 @@
 # Spotify for Developers: https://developer.spotify.com/console/player/
+param (
+    [Parameter(Mandatory, HelpMessage="Authentication header cookie")][Alias("c")][string]$cookie,
+    [Parameter(Mandatory, HelpMessage="Spotify Client Id")][Alias("i","id")][string]$client_id,
+    [Parameter(Mandatory, HelpMessage="Spotify Client Secret")][Alias("s","secret")][string]$client_secret,
+	[Parameter(Mandatory, HelpMessage="Spotify refresh token (personal account)")][Alias("t","token")][string]$refresh_token,
+	[Parameter(HelpMessage="Default Spotify player name")][Alias("p", "player")][string]$default_player_name
+)
+
 
 echo "------- SPOTIFY PLAYER -------`nStop work, it's music time!`n"
 
@@ -12,9 +20,9 @@ Start-Transcript
 echo "`nAuthenticating..."
 $authheaders = New-Object "System.Collections.Generic.Dictionary[[String],[String]]"
 $authheaders.Add("Content-Type", "application/x-www-form-urlencoded")
-$authheaders.Add("Cookie", <INSERT-SPOTIFY-COOKIE>)
+$authheaders.Add("Cookie", $cookie)
 
-$body = "grant_type=refresh_token&refresh_token=<INSERT-SPOTIFY-REFRESH-TOKEN>&client_id=<INSERT-SPOTIFY-CLIENTID>&client_secret=<INSERT-SPOTIFY-CLIENTSECRET>"
+$body = "grant_type=refresh_token&refresh_token=" + $refresh_token + "&client_id=" + $client_id + "&client_secret=" + $client_secret
 
 $authresponse = Invoke-RestMethod 'https://accounts.spotify.com/api/token' -Method 'POST' -Headers $authheaders -Body $body
 # $authresponse | ConvertTo-Json
@@ -27,11 +35,11 @@ $headers.Add("Authorization", "Bearer " + $authresponse.access_token)
 
 
 # 2. GET DEVICES -------------------------------------------------------------------------------------------------
-# Will set <INSERT-DEFAULT-PLAYER-NAME> as the default device, and if not available will use any other device
+# Will set $default_player_name as the default device, and if not available will use any other device
 echo "`nFetching available devices..."
 $deviceresponse = Invoke-RestMethod 'https://api.spotify.com/v1/me/player/devices' -Method 'GET' -Headers $headers
 
-$playbackdevice = $deviceresponse.devices.Where({$_.name -eq "<INSERT-DEFAULT-PLAYER-NAME>"}).id
+$playbackdevice = $deviceresponse.devices.Where({$_.name -eq $default_player_name}).id
 if ([string]::IsNullOrEmpty($playbackdevice))
 {
     $playbackdevice = $deviceresponse.devices[0].id
