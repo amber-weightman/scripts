@@ -13,10 +13,10 @@ Initial authentication is a bit fiddly but after that's done it works like a cha
 First, set up a new App on the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/applications). 
 
 Only basic configuration is required here, enough to generate a `client_id` and `client_secret`. Don't worry, you don't actually need to "build an app".
-![Spotify new app overview](./Images/app_overview.png)
+![Spotify new app overview](https://user-images.githubusercontent.com/2852629/212524329-c008ae92-5e79-4313-940a-817c24dc91f8.PNG)
 
 In Settings, you will also need to provide a `website` and `callback_uri`. You don't need anything running at these locations, but the values set here will be used for validation during the initial authentication process.
-![Spotify app settings](./Images/app_settings.png)
+![Spotify app settings](https://user-images.githubusercontent.com/2852629/212524341-fdc21173-1820-4ad6-b8e4-b708c4c2ee28.PNG)
 
 ### 2. Generate a `refresh_token`
 
@@ -25,7 +25,7 @@ Next you will need to generate a `refresh_token` for your personal Spotify Premi
 The Spotify Player API requires a premium account.
 
 Once the token has been set up successfully, you will see the app permission listed against your personal profile.
-![Spotify user permissions](./Images/permission_granted.png)
+![Spotify user permissions](https://user-images.githubusercontent.com/2852629/212524352-042c0520-32c5-43a4-832b-8f46de123fbf.PNG)
 
 ### 3. Pass the id, secret and token generated above into the `.ps1` script file
 ```
